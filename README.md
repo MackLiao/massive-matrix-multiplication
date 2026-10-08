@@ -14,10 +14,26 @@ The final software stack is organized as a three-tier system:
 2. **Backend**: FastAPI service that stores matrices, pads/slices them into tiles, dispatches tile work to the board, collects timing data, and verifies results against NumPy.
 3. **PYNQ board server**: Python TCP server running on the PYNQ-Z2. It loads the FPGA bitstream, receives binary tile requests, calls the hardware accelerator, and returns the result tile.
 
+```mermaid
+flowchart LR
+    A["React frontend<br/>Matrix input"] --> B["FastAPI backend<br/>Pad and tile"]
+    B --> C["Binary TCP<br/>PYNQ board server"]
+    C --> D["FPGA accelerator<br/>Tile multiplication"]
+    D --> E["Backend<br/>Accumulate and verify"]
+    E --> F["Frontend<br/>Result and timing"]
+```
+
+## Performance
+
+![Horizontal bar chart of reported wall-clock time for a 2048 by 2048 matrix multiplication job: 63.5 seconds with HTTP/JSON, 27.3 seconds with base64 transfer, 7.77 seconds with binary TCP, and 7.3 seconds with optimized HLS.](assets/performance.png)
+
+The chart reproduces the reported results from our capstone final presentation (April 22, 2026, slide 5). It compares successive project configurations; the slide's estimated first baseline is omitted. These are presentation results, not a CPU comparison or a guaranteed runtime for the default `board/` bitstream. The repository contains separate bitstream and handoff pairs in `board/` and `hls/`.
+
 ## Repository Structure
 
 ```text
 .
+├── assets/    # Performance chart from the final presentation
 ├── backend/   # FastAPI API, tile orchestration, and tests
 ├── board/     # PYNQ-Z2 server, accelerator driver, and FPGA files
 ├── frontend/  # React and TypeScript interface
