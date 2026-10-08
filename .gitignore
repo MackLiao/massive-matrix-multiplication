@@ -1,0 +1,58 @@
+# Ignore build output directory
+/build
+/export
+
+# Ignore object files and dependent files
+.o
+.d
+
+#Ignore logs folder and log files
+/logs
+.log
+
+#Ignore lock files
+.lock
+
+.bin
+.pdi
+.vitisWorkspace.json
+
+_ide/logs
+_ide/.wsdata
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+venv/
+.env
+
+# Node
+node_modules/
+dist/
+
+# Test cache
+.pytest_cache/
+
+# IDE / tool cache
+.cache/
+
+# Vivado / Vitis HLS
+*.jou
+vitis_hls.log
+vivado.log
+xcd.log
+.autopilot/
+**/hls/impl/
+**/hls/syn/
+**/hls/csim/
+**/logs/*.backup.log
+*.hlsrun_package_summary
+compile_commands.json
+vitis-comp.json
+
+# OS
+.DS_Store
+
+CLAUDE.md
